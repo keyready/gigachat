@@ -1,0 +1,64 @@
+.title, .text {
+    color: var(--primary-color);
+    font-family: var(--font-family-main);
+}
+
+.center {
+    text-align: center;
+}
+
+.left {
+    text-align: left;
+}
+
+.right {
+    text-align: right;
+}
+
+.justify {
+    text-align: justify;
+}
+
+.primary {
+    color: var(--secondary-color)
+}
+
+.error {
+    color: red;
+}
+
+.warning {
+    color: darkorange;
+}
+
+.large {
+    .title {
+        font: var(--font-l);
+    }
+
+    .text {
+        font-size: 22px;
+    }
+}
+
+.medium {
+    .title {
+        font: var(--font-m);
+    }
+
+    .text {
+        font-size: 18px;
+    }
+}
+
+.small {
+    .title {
+        font: var(--font-s);
+    }
+
+    .text {
+        font-size: 14px;
+    }
+}
+
+

@@ -1,0 +1,13 @@
+{
+  "name": "gigachat",
+  "version": "1.0.0",
+  "description": "Веб-приложение для общения с GigaChat от Сбера",
+  "main": ".eslintrc.js",
+  "scripts": {
+    "init": "npm i concurrently && concurrently -n CLIENT,SERVER -c blue,yellow \"cd ./client && npm i --force\" \"cd ./server && npm i --force\"",
+    "start": "concurrently -n CLIENT,SERVER -c blue,yellow \"cd ./client && npm start\" \"cd ./server && npm start\""
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC"
+}
