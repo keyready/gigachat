@@ -2,7 +2,6 @@ import React, { Fragment, ReactNode } from 'react';
 
 import { Dialog, Transition } from '@headlessui/react';
 import { classNames } from 'shared/lib/classNames/classNames';
-import { useTranslation } from 'react-i18next';
 import { Text, TextAlign } from '../../Text';
 import { Button } from '../../Button';
 import classes from './Modal.module.scss';
@@ -31,8 +30,6 @@ export const Modal = (props: ModalProps) => {
         close,
         canOverlayClose = true,
     } = props;
-
-    const { t } = useTranslation();
 
     return (
         <Transition appear as={Fragment} show={isOpen}>
@@ -72,7 +69,7 @@ export const Modal = (props: ModalProps) => {
                                     variant="clear"
                                     onClick={() => setIsOpen(false)}
                                 >
-                                    {t('Закрыть')}
+                                    Закрыть
                                 </Button>
                             )}
                             {title && (

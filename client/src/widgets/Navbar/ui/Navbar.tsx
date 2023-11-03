@@ -7,8 +7,10 @@ export interface NavbarProps {
     className?: string;
 }
 
-export const Navbar = memo(({ className }: NavbarProps) => (
-    <HStack maxW align="center" className={classNames(classes.Navbar, {}, [className])}>
-        <HStack maxW justify="center" className={classes.links} />
-    </HStack>
-));
+export const Navbar = memo(({ className }: NavbarProps) => {
+    return (
+        <HStack maxW justify='center' className={classNames(classes.Navbar, {}, [className])}>
+            <h3 className={classes.m0}>GigaChat API</h3>
+        </HStack>
+    );
+});

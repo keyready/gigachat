@@ -37,6 +37,7 @@ module.exports = {
         'import/extensions': 'off',
         'no-shadow': 'off',
         'no-undef': 'off',
+        'no-bitwise': 'off',
         'react/jsx-props-no-spreading': 'off',
         'no-return-await': 'warn',
         'no-unused-vars': 'warn',
