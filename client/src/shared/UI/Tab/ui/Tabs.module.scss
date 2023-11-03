@@ -1,0 +1,23 @@
+.wrapper {
+	margin: 10px 0;
+}
+
+.tab {
+    cursor: pointer;
+    padding: 5px 15px;
+    border: none;
+    border-radius: 5px;
+    outline: 2px solid var(--primary-color);
+    margin-right: 5px;
+	transition: 200ms ease-in-out;
+}
+
+.selected {
+	background: var(--inverted-bg-color);
+	outline: 2px solid white;
+	color: white;
+}
+
+.panel {
+	width: 100%;
+}

@@ -1,15 +1,15 @@
 import { createAsyncThunk } from '@reduxjs/toolkit';
 import { ThunkConfig, ThunkError } from 'app/providers/StoreProvider/config/StateSchema';
 import { AxiosError } from 'axios';
-import { AuthUser } from '../types/AuthUser';
+import { User, UserActions } from 'entities/User';
 
-export const RefreshToken = createAsyncThunk<AuthUser, string, ThunkConfig<ThunkError>>(
+export const RefreshToken = createAsyncThunk<User, string, ThunkConfig<ThunkError>>(
     'AuthUser/RefreshToken',
     async (token, thunkAPI) => {
-        const { extra, rejectWithValue } = thunkAPI;
+        const { extra, rejectWithValue, dispatch } = thunkAPI;
 
         try {
-            const response = await extra.api.post<AuthUser>('/refresh_token', {
+            const response = await extra.api.post<User>('/refresh_token', {
                 token,
             });
 
@@ -17,6 +17,7 @@ export const RefreshToken = createAsyncThunk<AuthUser, string, ThunkConfig<Thunk
                 throw new Error();
             }
 
+            dispatch(UserActions.setUserData(response.data));
             return response.data;
         } catch (error) {
             const axiosError = error as AxiosError;

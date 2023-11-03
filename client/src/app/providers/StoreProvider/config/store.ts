@@ -4,6 +4,7 @@ import { UIReducer } from 'features/UI';
 import { rtkApi } from 'shared/api/rtkApi';
 import { SubjectReducer } from 'entities/Subject';
 import { AuthUserReducer } from 'features/AuthUser';
+import { UserReducer } from 'entities/User';
 import { createReducerManager } from './reducerManager';
 import { StateSchema } from './StateSchema';
 
@@ -16,6 +17,7 @@ export function CreateReduxStore(
         ui: UIReducer,
         subject: SubjectReducer,
         authUser: AuthUserReducer,
+        user: UserReducer,
         [rtkApi.reducerPath]: rtkApi.reducer,
     };
 

@@ -10,11 +10,13 @@ import { UISchema } from 'features/UI';
 import { rtkApi } from 'shared/api/rtkApi';
 import { SubjectSchema } from 'entities/Subject';
 import { AuthUserSchema } from 'features/AuthUser';
+import { UserSchema } from 'entities/User';
 
 export interface StateSchema {
     ui: UISchema;
     subject: SubjectSchema;
     authUser: AuthUserSchema;
+    user: UserSchema;
     [rtkApi.reducerPath]: ReturnType<typeof rtkApi.reducer>;
 
     // asynchronous reducers

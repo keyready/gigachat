@@ -39,6 +39,7 @@ app.use(express.json());
 
 async function StartApp() {
     try {
+        // await DB.sync({ force: true });
         await DB.sync({ alter: true });
 
         app.listen(process.env.SERVER_PORT, () => {
@@ -55,7 +56,7 @@ app.post('/sign_in', async (req, res) => {
     try {
         const { login, password } = req.body;
 
-        const candidate = await UserModel.findOne({ raw: true, where: { username: login } });
+        const candidate = await UserModel.findOne({ raw: true, where: { login } });
 
         if (!candidate) {
             return res.status(404).json({ message: 'Пользователя с таким логином не найдено' });
@@ -99,7 +100,7 @@ app.post('/sign_up', async (req, res) => {
     try {
         const { login, password, name } = req.body;
 
-        const candidate = await UserModel.findAll({ raw: true, where: { username: login } });
+        const candidate = await UserModel.findAll({ raw: true, where: { login } });
         if (candidate.length) {
             return res.status(404).json({ message: 'Пользователь с таким логином уже существует' });
         }
@@ -107,23 +108,16 @@ app.post('/sign_up', async (req, res) => {
         const hash = await bcrypt.hash(password, ~~process.env.BCRYPT_HASH);
 
         if (hash) {
-            const refreshToken = jwt.sign(
-                { id: candidate.id, name: candidate.name },
-                process.env.SECRET_REFRESH,
-            );
-            const accessToken = jwt.sign(
-                { id: candidate.id, name: candidate.name },
-                process.env.SECRET_ACCESS,
-                {
-                    expiresIn: '20m',
-                },
-            );
+            const refreshToken = jwt.sign({ login, name }, process.env.SECRET_REFRESH);
+            const accessToken = jwt.sign({ login, name }, process.env.SECRET_ACCESS, {
+                expiresIn: '20m',
+            });
 
             res.cookie('access_token', accessToken);
             res.cookie('refresh_token', refreshToken);
 
             const user = await UserModel.create({
-                username: login,
+                login,
                 password: hash,
                 name,
                 refresh_token: refreshToken,
@@ -132,6 +126,7 @@ app.post('/sign_up', async (req, res) => {
             return res.status(200).json({ ...user.dataValues, refresh_token: '', password: '' });
         }
     } catch (e) {
+        console.log(e);
         return res.status(500).json({ message: 'Произошло что-то непредвиденное' });
     }
 });
@@ -177,13 +172,13 @@ app.post('/refresh_token', async (req, res) => {
 
 app.post('/logout', async (req, res) => {
     try {
-        const { id } = req.body;
+        const { userLogin } = req.body;
 
         await UserModel.update(
             {
                 refresh_token: '',
             },
-            { where: { id } },
+            { where: { login: userLogin } },
         );
 
         res.cookie('access_token', '');

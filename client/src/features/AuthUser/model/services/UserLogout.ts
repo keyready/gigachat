@@ -1,20 +1,21 @@
 import { createAsyncThunk } from '@reduxjs/toolkit';
 import { ThunkConfig, ThunkError } from 'app/providers/StoreProvider/config/StateSchema';
 import { AxiosError } from 'axios';
-import { AuthUser } from 'features/AuthUser';
+import { UserActions } from 'entities/User';
 
-export const UserLogout = createAsyncThunk<string, AuthUser, ThunkConfig<ThunkError>>(
+export const UserLogout = createAsyncThunk<string, string, ThunkConfig<ThunkError>>(
     'AuthUser/UserLogout',
-    async (userData, thunkAPI) => {
-        const { extra, rejectWithValue } = thunkAPI;
+    async (userLogin, thunkAPI) => {
+        const { extra, rejectWithValue, dispatch } = thunkAPI;
 
         try {
-            const response = await extra.api.post<string>('/logout', userData);
+            const response = await extra.api.post<string>('/logout', { userLogin });
 
             if (!response.data) {
                 throw new Error();
             }
 
+            dispatch(UserActions.logout());
             return response.data;
         } catch (error) {
             const axiosError = error as AxiosError;
