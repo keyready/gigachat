@@ -5,7 +5,7 @@
   "main": ".eslintrc.js",
   "scripts": {
     "init": "npm i concurrently && concurrently -n CLIENT,SERVER -c blue,yellow \"cd ./client && npm i --force\" \"cd ./server && npm i --force\"",
-    "start": "concurrently -n CLIENT,SERVER -c blue,yellow \"cd ./client && npm start\" \"cd ./server && npm start\"",
+    "start": "concurrently -n CLIENT,SERVER -c blue,yellow \"cd ./client && npm start\" \"cd ./server && npm run dev\"",
     "lint:project": "concurrently -n Prettier,ESlint,Stylelint -c blue,yellow,green \"cd ./client && npm run prettier\" \"npm run lint:ts\" \"npm run lint:scss\"",
     "lint:ts": "eslint \"**/*.{ts,tsx}\" --fix",
     "lint:scss": "npx stylelint \"**/*.scss\" --fix"

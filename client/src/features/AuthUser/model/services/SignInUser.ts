@@ -2,8 +2,9 @@ import { createAsyncThunk } from '@reduxjs/toolkit';
 import { ThunkConfig, ThunkError } from 'app/providers/StoreProvider/config/StateSchema';
 import { AxiosError } from 'axios';
 import { getUserLogin, getUserPassword } from '../selectors/AuthUserSelectors';
+import {AuthUser} from "../types/AuthUser";
 
-export const SignInUser = createAsyncThunk<string, void, ThunkConfig<ThunkError>>(
+export const SignInUser = createAsyncThunk<AuthUser, void, ThunkConfig<ThunkError>>(
     'AuthUser/SignInUser',
     async (_, thunkAPI) => {
         const { extra, rejectWithValue, getState } = thunkAPI;
@@ -12,7 +13,7 @@ export const SignInUser = createAsyncThunk<string, void, ThunkConfig<ThunkError>
             const login = getUserLogin(getState());
             const password = getUserPassword(getState());
 
-            const response = await extra.api.post<string>('/sign_in', {
+            const response = await extra.api.post<AuthUser>('/sign_in', {
                 login,
                 password,
             });

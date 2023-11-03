@@ -1,5 +1,5 @@
 import { Page } from 'widgets/Page/Page';
-import { useCallback, useEffect, useState } from 'react';
+import { useCallback, useEffect } from 'react';
 import { Text } from 'shared/UI/Text';
 import { Input } from 'shared/UI/Input';
 import { Button } from 'shared/UI/Button';

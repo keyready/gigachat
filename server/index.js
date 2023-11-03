@@ -41,7 +41,7 @@ app.post('/sign_in', async (req, res) => {
             .compare(password, candidate[0].password)
             .then((isComparable) => {
                 if (isComparable) {
-                    return res.status(200).json(candidate[0]);
+                    return res.status(200).json({...candidate[0], password: ''});
                 }
                 return res.status(404).json({ message: 'Пароль неверный' });
             })
@@ -49,13 +49,13 @@ app.post('/sign_in', async (req, res) => {
                 throw new Error(err);
             });
     } catch (e) {
-        res.status(500).json({ message: 'Произошло что-то непредвиденное' });
+        return res.status(500).json({ message: 'Произошло что-то непредвиденное' });
     }
 });
 
 app.post('/sign_up', async (req, res) => {
     try {
-        const { login, password } = req.body;
+        const { login, password, name } = req.body;
 
         const candidate = await UserModel.findAll({ raw: true, where: { username: login } });
         if (candidate.length) {
@@ -65,19 +65,19 @@ app.post('/sign_up', async (req, res) => {
         bcrypt
             .hash(password, ~~process.env.BCRYPT_HASH)
             .then(async (hash) => {
-                const user = await UserModel.create({ username: login, password: hash });
-                return res.status(200).json(user);
+                const user = await UserModel.create({ username: login, password: hash, name });
+                return res.status(200).json({...user.dataValues, password: ''});
             })
             .catch((err) => {
                 throw new Error(err);
             });
     } catch (e) {
-        res.status(500).json({ message: 'Произошло что-то непредвиденное' });
+        return res.status(500).json({ message: 'Произошло что-то непредвиденное' });
     }
 });
 
 app.get('/*', async (req, res) => {
-    res.sendFile(path.resolve(__dirname, '../dist/index.html'));
+    return res.sendFile(path.resolve(__dirname, '../dist/index.html'));
 });
 
 StartApp();

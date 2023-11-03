@@ -1,7 +1,7 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 import { ThunkError } from 'app/providers/StoreProvider';
 import { SignInUser } from '../services/SignInUser';
-import { AuthUserSchema } from '../types/AuthUser';
+import {AuthUser, AuthUserSchema} from "../types/AuthUser";
 import { SignUpUser } from '../services/SignUpUser';
 
 const initialState: AuthUserSchema = {
@@ -34,9 +34,9 @@ export const AuthUserSlice = createSlice({
                 state.error = undefined;
                 state.isLoading = true;
             })
-            .addCase(SignInUser.fulfilled, (state) => {
+            .addCase(SignInUser.fulfilled, (state, action: PayloadAction<AuthUser>) => {
                 state.isLoading = false;
-                state.data = { ...state.data, password: '' };
+                state.data = { ...action.payload, password: '' };
             })
             .addCase(SignInUser.rejected, (state, action) => {
                 state.isLoading = false;
