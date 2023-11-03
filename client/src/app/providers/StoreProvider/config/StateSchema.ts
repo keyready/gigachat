@@ -9,6 +9,7 @@ import { AxiosInstance } from 'axios';
 import { UISchema } from 'features/UI';
 import { rtkApi } from 'shared/api/rtkApi';
 import { SubjectSchema } from 'entities/Subject';
+import { AuthUserSchema } from 'features/AuthUser';
 
 export interface StateSchema {
     ui: UISchema;
@@ -16,6 +17,7 @@ export interface StateSchema {
     [rtkApi.reducerPath]: ReturnType<typeof rtkApi.reducer>;
 
     // asynchronous reducers
+    authUser?: AuthUserSchema;
 }
 
 export type StateSchemaKey = keyof StateSchema;
@@ -40,4 +42,8 @@ export interface ThunkConfig<T> {
     rejectValue: T;
     extra: ThunkExtraArg;
     state: StateSchema;
+}
+
+export interface ThunkError {
+    message: string;
 }
