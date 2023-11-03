@@ -1,7 +1,8 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
-import { ThunkError } from 'app/providers/StoreProvider';
+import { RefreshToken } from '../services/RefreshToken';
+import { UserLogout } from '../services/UserLogout';
 import { SignInUser } from '../services/SignInUser';
-import {AuthUser, AuthUserSchema} from "../types/AuthUser";
+import { AuthUser, AuthUserSchema } from '../types/AuthUser';
 import { SignUpUser } from '../services/SignUpUser';
 
 const initialState: AuthUserSchema = {
@@ -52,6 +53,32 @@ export const AuthUserSlice = createSlice({
                 state.data = { ...state.data, password: '' };
             })
             .addCase(SignUpUser.rejected, (state, action) => {
+                state.isLoading = false;
+                state.error = action.payload;
+            })
+
+            .addCase(RefreshToken.pending, (state) => {
+                state.error = undefined;
+                state.isLoading = true;
+            })
+            .addCase(RefreshToken.fulfilled, (state, action: PayloadAction<AuthUser>) => {
+                state.isLoading = false;
+                state.data = action.payload;
+            })
+            .addCase(RefreshToken.rejected, (state, action) => {
+                state.isLoading = false;
+                state.error = action.payload;
+            })
+
+            .addCase(UserLogout.pending, (state) => {
+                state.error = undefined;
+                state.isLoading = true;
+            })
+            .addCase(UserLogout.fulfilled, (state, action: PayloadAction<string>) => {
+                state.isLoading = false;
+                state.data = { login: '', name: '', password: '' };
+            })
+            .addCase(UserLogout.rejected, (state, action) => {
                 state.isLoading = false;
                 state.error = action.payload;
             });

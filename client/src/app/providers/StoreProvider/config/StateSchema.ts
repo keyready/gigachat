@@ -14,10 +14,10 @@ import { AuthUserSchema } from 'features/AuthUser';
 export interface StateSchema {
     ui: UISchema;
     subject: SubjectSchema;
+    authUser: AuthUserSchema;
     [rtkApi.reducerPath]: ReturnType<typeof rtkApi.reducer>;
 
     // asynchronous reducers
-    authUser?: AuthUserSchema;
 }
 
 export type StateSchemaKey = keyof StateSchema;

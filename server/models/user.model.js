@@ -7,6 +7,7 @@ module.exports = DB.define(
         username: DataTypes.STRING,
         password: DataTypes.STRING,
         name: DataTypes.STRING,
+        refresh_token: DataTypes.TEXT,
     },
     {
         tableName: 'users',

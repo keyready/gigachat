@@ -59,33 +59,27 @@ const MainPage = () => {
     }, [dispatch]);
 
     return (
-        <DynamicModuleLoader reducers={{ authUser: AuthUserReducer }}>
-            <Page>
-                {userError && <Text title={userError.message} />}
-                {userName && <Text title={`Привет, ${userName}`} />}
-                <Input
-                    placeholder="Введите логин"
-                    value={userLogin}
-                    onChange={handleUsernameChange}
-                />
-                <Input
-                    placeholder="Введите пароль"
-                    value={userPassword}
-                    onChange={handlePasswordChange}
-                />
-                <Input
-                    placeholder="Введите имя (при регистрации)"
-                    value={userName}
-                    onChange={handleNameChange}
-                />
-                <HStack maxW justify="between">
-                    <Button onClick={handleSignInClick}>Отправить</Button>
-                    <Button onClick={handleSignUpClick}>Зарегистрировать</Button>
-                </HStack>
+        <Page>
+            {userError && <Text title={userError.message} />}
+            {userName && <Text title={`Привет, ${userName}`} />}
+            <Input placeholder="Введите логин" value={userLogin} onChange={handleUsernameChange} />
+            <Input
+                placeholder="Введите пароль"
+                value={userPassword}
+                onChange={handlePasswordChange}
+            />
+            <Input
+                placeholder="Введите имя (при регистрации)"
+                value={userName}
+                onChange={handleNameChange}
+            />
+            <HStack maxW justify="between">
+                <Button onClick={handleSignInClick}>Отправить</Button>
+                <Button onClick={handleSignUpClick}>Зарегистрировать</Button>
+            </HStack>
 
-                {userIsLoading && <Text title="Подождите, идет загрузка" />}
-            </Page>
-        </DynamicModuleLoader>
+            {userIsLoading && <Text title="Подождите, идет загрузка" />}
+        </Page>
     );
 };
 

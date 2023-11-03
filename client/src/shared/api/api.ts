@@ -4,6 +4,7 @@ import Cookie from 'js-cookie';
 
 export const $api = axios.create({
     baseURL: __API__,
+    withCredentials: true,
 });
 
 $api.interceptors.request.use((config) => {
