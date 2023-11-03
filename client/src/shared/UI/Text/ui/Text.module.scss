@@ -1,0 +1,71 @@
+.center {
+	.text, .title {
+		text-align: center;
+	}
+}
+
+.left {
+	.text, .title {
+		text-align: left;
+	}
+}
+
+.right {
+	.text, .title {
+		text-align: right;
+	}
+}
+
+.justify {
+	.text {
+		text-align: justify;
+	}
+}
+
+.large {
+	h1 {
+		font: var(--font-xl);
+		font-weight: bold;
+		color: var(--primary-color);
+		margin: 20px 0 0 0;
+	}
+
+	p {
+		font: var(--font-m);
+		color: var(--secondary-color);
+		margin: 5px 0;
+		text-indent: 20px;
+	}
+}
+
+.medium {
+	h2 {
+		font: var(--font-l);
+		font-weight: bold;
+		color: var(--primary-color);
+		margin: 20px 0 0 0;
+	}
+
+	p {
+		font: var(--font-s);
+		color: var(--secondary-color);
+		margin: 5px 0;
+		text-indent: 20px;
+	}
+}
+
+.small {
+	h3 {
+		font: var(--font-m);
+		font-weight: bold;
+		color: var(--primary-color);
+		margin: 20px 0 0 0;
+	}
+
+	p {
+		font: var(--font-xs);
+		color: var(--secondary-color);
+		margin: 5px 0;
+		text-indent: 20px;
+	}
+}

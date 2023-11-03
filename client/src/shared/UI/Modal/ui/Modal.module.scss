@@ -1,0 +1,110 @@
+.overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: rgb(0 0 0 / 75%);
+}
+
+.Modal {
+    cursor: pointer;
+    position: relative;
+    z-index: 10;
+}
+
+.unclickableModal {
+    cursor: not-allowed;
+    position: relative;
+    z-index: 10;
+}
+
+.wrapper {
+    padding: 15px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    overflow-y: auto;
+    text-align: center;
+}
+
+.ModalPanel {
+    cursor: auto;
+    width: 50%;
+    padding: 15px;
+    border-radius: 15px;
+    background: var(--bg-color);
+    position: relative;
+    min-width: 400px;
+}
+
+.ModalTitle {
+
+}
+
+.closeBtn {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+}
+
+.children {
+    margin-top: 15px;
+}
+
+.enter {
+    transition: 150ms ease-out;
+}
+
+.enterFrom {
+    opacity: 0;
+    transform: translateY(-50px);
+}
+
+.enterTo {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+.leave {
+    transition: 150ms ease-out;
+}
+
+.leaveFrom {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+.leaveTo {
+    opacity: 0;
+    transform: translateY(50px);
+}
+
+.enterOverlay {
+    transition: 150ms ease-out;
+}
+
+.enterFromOverlay {
+    opacity: 0;
+}
+
+.enterToOverlay {
+    opacity: 1;
+}
+
+.leaveOverlay {
+    transition: 150ms ease-out;
+}
+
+.leaveFromOverlay {
+    opacity: 1;
+}
+
+.leaveToOverlay {
+    opacity: 0;
+}

@@ -1,0 +1,30 @@
+{
+  "name": "gigachat",
+  "version": "1.0.0",
+  "description": "Веб-приложение для общения с GigaChat от Сбера",
+  "main": ".eslintrc.js",
+  "scripts": {
+    "init": "npm i concurrently && concurrently -n CLIENT,SERVER -c blue,yellow \"cd ./client && npm i --force\" \"cd ./server && npm i --force\"",
+    "start": "concurrently -n CLIENT,SERVER -c blue,yellow \"cd ./client && npm start\" \"cd ./server && npm run dev\"",
+    "lint:project": "concurrently -n Prettier,ESlint,Stylelint -c blue,yellow,green \"cd ./client && npm run prettier\" \"npm run lint:ts\" \"npm run lint:scss\"",
+    "lint:ts": "eslint \"**/*.{ts,tsx}\" --fix",
+    "lint:scss": "npx stylelint \"**/*.scss\" --fix"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "@typescript-eslint/eslint-plugin": "^5.12.1",
+    "@typescript-eslint/parser": "^5.12.1",
+    "concurrently": "^8.2.2",
+    "eslint": "8.22.0",
+    "eslint-config-airbnb": "^19.0.4",
+    "eslint-config-prettier": "^8.8.0",
+    "eslint-plugin-fsd-path-checker-keyready": "^1.0.0",
+    "eslint-plugin-import": "^2.25.4",
+    "eslint-plugin-jsx-a11y": "^6.5.1",
+    "eslint-plugin-react": "^7.29.2",
+    "eslint-plugin-react-hooks": "^4.6.0",
+    "prettier": "2.8.8"
+  }
+}

@@ -1,5 +1,10 @@
 /.idea
+/node_modules
+/dist
+/.env
 
 /client/node_modules
+/client/dist
 
 /server/node_modules
+
