@@ -2,6 +2,7 @@ import { classNames } from 'shared/lib/classNames/classNames';
 import { Tab as HTab } from '@headlessui/react';
 import { Fragment, memo, ReactNode } from 'react';
 import { HStack, VStack } from 'shared/UI/Stack';
+import { Text } from 'shared/UI/Text';
 import classes from './Tabs.module.scss';
 
 interface TabsProps {

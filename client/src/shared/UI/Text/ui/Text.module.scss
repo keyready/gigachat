@@ -41,9 +41,11 @@
 .medium {
     h2 {
         margin: 20px 0 0;
-        color: var(--primary-color);
+        color: transparent !important;
         font: var(--font-l);
         font-weight: bold;
+        background-clip: text !important;
+        background-image: linear-gradient(var(--primary-gradient)) !important;
     }
 
     p {

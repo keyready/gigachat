@@ -2,5 +2,14 @@
     width: 100%;
     height: var(--navbar-heigth);
     padding: 20px;
-    background: var(--inverted-bg-color);
+    background: var(--card-bg);
+}
+
+.gigachat {
+    * {
+        margin: 0 !important;
+        color: transparent !important;
+        background-clip: text !important;
+        background-image: linear-gradient(var(--primary-gradient)) !important;
+    }
 }

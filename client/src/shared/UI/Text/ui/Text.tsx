@@ -14,7 +14,14 @@ interface TextProps {
 }
 
 export const Text = memo((props: TextProps) => {
-    const { className, title, text, align = 'justify', size = 'medium', variant = 'primary' } = props;
+    const {
+        className,
+        title,
+        text,
+        align = 'justify',
+        size = 'medium',
+        variant = 'primary',
+    } = props;
 
     const variantsClasses = variantsMapper[variant];
     const alignsClasses = alignsMapper[align];

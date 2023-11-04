@@ -72,7 +72,8 @@ const MainPage = () => {
 
     return (
         <Page>
-            <HStack className={classes.wrapper} gap="16" maxW justify="between" align="start">
+            <HStack className={classes.wrapper} gap="16" maxW
+justify="between" align="start">
                 <div className={classes.content}>
                     <Text
                         title="Что это такое?"
@@ -102,6 +103,9 @@ const MainPage = () => {
                         title="Что же в сухом остатке?"
                         text="В итоге, Гига чат - это пример того, как не надо делать нейросети. Она не только бесполезна, но и может стать источником неправильной информации, что делает её не просто бесполезной, но и потенциально вредной."
                     />
+
+                    <hr className={classes.devider} />
+                    <Text text="С любовью, ChatGPT 4.0" />
                 </div>
                 <VStack className={classes.tabs}>
                     <Tabs

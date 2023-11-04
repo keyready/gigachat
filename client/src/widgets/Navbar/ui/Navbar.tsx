@@ -7,6 +7,7 @@ import { Button } from 'shared/UI/Button';
 import { useAppDispatch } from 'shared/lib/hooks/useAppDispatch/useAppDispatch';
 import { AppLink } from 'shared/UI/AppLink';
 import { getUserData } from 'entities/User';
+import { Text } from 'shared/UI/Text';
 import classes from './Navbar.module.scss';
 
 export interface NavbarProps {
@@ -24,7 +25,7 @@ export const Navbar = memo(({ className }: NavbarProps) => {
     return (
         <HStack maxW justify="between" className={classNames(classes.Navbar, {}, [className])}>
             <AppLink to="/" className={classes.m0}>
-                {userData?.name || 'Гига чат'}
+                <Text className={classes.gigachat} title="ViinoKuChat" size="large" />
             </AppLink>
             {userData && <Button onClick={handleLogoutClick}>Выйти</Button>}
         </HStack>

@@ -1,5 +1,5 @@
 .wrapper {
-	margin: 10px 0;
+    margin: 10px 0;
 }
 
 .tab {
@@ -7,17 +7,19 @@
     padding: 5px 15px;
     border: none;
     border-radius: 5px;
-    outline: 2px solid var(--primary-color);
+    color: rgb(255 255 255 / 50%);
+    transition: 200ms ease-in-out;
     margin-right: 5px;
-	transition: 200ms ease-in-out;
 }
 
 .selected {
-	background: var(--inverted-bg-color);
-	outline: 2px solid white;
-	color: white;
+    border: none;
+    color: white;
+    background: var(--card-bg);
+    outline: none;
 }
 
 .panel {
-	width: 100%;
+    width: 100%;
+    background: var(--card-bg);
 }

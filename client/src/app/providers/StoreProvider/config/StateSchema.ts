@@ -8,15 +8,15 @@ import {
 import { AxiosInstance } from 'axios';
 import { UISchema } from 'features/UI';
 import { rtkApi } from 'shared/api/rtkApi';
-import { SubjectSchema } from 'entities/Subject';
 import { AuthUserSchema } from 'features/AuthUser';
 import { UserSchema } from 'entities/User';
+import { ChatSchema } from 'entities/Chat';
 
 export interface StateSchema {
     ui: UISchema;
-    subject: SubjectSchema;
     authUser: AuthUserSchema;
     user: UserSchema;
+    chat: ChatSchema;
     [rtkApi.reducerPath]: ReturnType<typeof rtkApi.reducer>;
 
     // asynchronous reducers

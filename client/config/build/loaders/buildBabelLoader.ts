@@ -2,7 +2,7 @@ import { BuildOptions } from '../config/types';
 import babelRemoveNodePlugin from '../../babel/babelRemoveNodePlugin';
 
 interface BuildBabelLoaderProps extends BuildOptions {
-    isTsx?: boolean
+    isTsx?: boolean;
 }
 
 export function buildBabelLoader({ isTsx }: BuildBabelLoaderProps) {
@@ -21,10 +21,7 @@ export function buildBabelLoader({ isTsx }: BuildBabelLoaderProps) {
                         },
                     ],
                     '@babel/plugin-transform-runtime',
-                    isTsx && [
-                        babelRemoveNodePlugin(),
-                        { props: ['data-testid'] },
-                    ],
+                    isTsx && [babelRemoveNodePlugin(), { props: ['data-testid'] }],
                 ].filter(Boolean),
             },
         },

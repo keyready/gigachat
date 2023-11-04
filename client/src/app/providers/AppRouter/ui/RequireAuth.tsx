@@ -10,9 +10,10 @@ export function RequireAuth({ children }: RequireAuthProps) {
     const auth = useSelector(getUserData);
     const location = useLocation();
 
-    if (!auth) {
-        return <Navigate to={RoutePath.main} state={{ from: location }} replace />;
-    }
+    // FIXME сделать роутинг...
+    // if (!auth) {
+    //     return <Navigate to={RoutePath.main} state={{ from: location }} replace />;
+    // }
 
     return children;
 }
