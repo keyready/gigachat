@@ -8,7 +8,7 @@ interface Props {
 
 const sendMessageApi = rtkApi.injectEndpoints({
     endpoints: (builder) => ({
-        sendMessage: builder.mutation<Message, Props>({
+        sendMessage: builder.mutation<Message[], Props>({
             query: ({ text, chatId }) => ({
                 url: '/send_message',
                 method: 'POST',

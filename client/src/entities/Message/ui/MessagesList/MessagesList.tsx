@@ -20,11 +20,12 @@ export const MessagesList = memo((props: MessagesListProps) => {
     const [newMessageText, setNewMessageText] = useState<string>('');
     const [messages, setMessages] = useState<Message[]>([]);
 
-    const [sendMessage, { data: newMessage }] = useSendMessage();
+    const [sendMessage, { data: newMessage, isLoading: isNewMessageLoading }] = useSendMessage();
 
     useEffect(() => {
-        if (newMessage) setMessages((prevState) => [...prevState, newMessage]);
+        if (newMessage?.length) setMessages((prevState) => [...prevState, ...newMessage]);
     }, [newMessage]);
+
     useEffect(() => {
         setMessages(chat.messages);
     }, [chat.messages]);

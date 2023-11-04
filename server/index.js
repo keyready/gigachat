@@ -6,10 +6,13 @@ const bcrypt = require('bcryptjs');
 const jwt = require('jsonwebtoken');
 const cookieParser = require('cookie-parser');
 
+const token = process.env.GIGACHAT_API;
+
 const { DataTypes } = require('sequelize');
 const DB = require('./config/db.connect');
 
 const { ChatModel, UserModel, MessagesModel } = require('./models');
+const { sendMessage } = require('./utils/sendMessage');
 
 const app = express();
 
@@ -233,12 +236,25 @@ app.post('/create_chat', async (req, res) => {
             return res.status(500).json({ message: 'Почему-то не удалось найти Вас' });
         }
 
-        const newChat = await ChatModel.create({
+        await ChatModel.create({
             title,
             userId: user.id,
         });
 
-        return res.status(200).json(newChat);
+        const chats = await ChatModel.findAll({
+            raw: true,
+            where: { userId: user.id },
+        });
+
+        for (let i = 0; i < chats.length; i += 1) {
+            chats[i].messages = await MessagesModel.findAll({
+                raw: true,
+                where: { chatId: chats[i].id },
+                order: [['id', 'ASC']],
+            });
+        }
+
+        return res.status(200).json(chats);
     } catch (e) {
         console.log(e);
         return res.status(500).json({ message: 'Произошло что-то непредвиденное' });
@@ -249,13 +265,33 @@ app.post('/send_message', async (req, res) => {
     try {
         const { text, chatId } = req.body;
 
-        const newMessage = await MessagesModel.create({
+        await MessagesModel.create({
             role: 'user',
             content: text,
             chatId,
         });
 
-        return res.status(200).json(newMessage);
+        const messages = await MessagesModel.findAll({
+            raw: true,
+            where: {
+                chatId,
+            },
+        });
+        for (let i = 0; i < messages.length; i += 1) {
+            delete messages[i].id;
+        }
+
+        const answer = await sendMessage(messages, token);
+        await MessagesModel.create({
+            role: 'assistant',
+            content: answer,
+            chatId,
+        });
+
+        return res.status(200).json([
+            { content: text, role: 'user' },
+            { content: answer, role: 'assistant' },
+        ]);
     } catch (e) {
         console.log(e);
         return res.status(500).json({ message: 'Произошло что-то непредвиденное' });

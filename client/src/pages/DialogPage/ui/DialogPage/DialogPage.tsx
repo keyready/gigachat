@@ -25,7 +25,7 @@ const DialogPage = memo((props: DialogPageProps) => {
 
     useEffect(() => {
         if (newChats) {
-            setChats((prevChats) => [...prevChats, newChats]);
+            setChats(newChats);
         }
     }, [newChats]);
 
@@ -48,7 +48,7 @@ const DialogPage = memo((props: DialogPageProps) => {
             />
             <Button onClick={handleCreateChat}>Создать чат</Button>
 
-            <hr />
+            <hr className={classes.devider} />
 
             <HStack maxW align="start">
                 <ChatsList

@@ -3,7 +3,7 @@ import { Chat } from '../model/types/Chat';
 
 const createChatApi = rtkApi.injectEndpoints({
     endpoints: (builder) => ({
-        createChat: builder.mutation<Chat, string>({
+        createChat: builder.mutation<Chat[], string>({
             query: (title) => ({
                 url: '/create_chat',
                 method: 'POST',
