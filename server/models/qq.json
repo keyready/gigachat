@@ -1,0 +1,15 @@
+{
+    "id": 4,
+    "title": "Новый чат",
+    "userId": 2,
+    "messages": [
+        {
+            "role": "user",
+            "content": "Привет, как дела?"
+        },
+        {
+            "role": "assistant",
+            "content": "Все хорошо, а тебя?"
+        }
+    ]
+}

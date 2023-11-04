@@ -6,9 +6,10 @@ const bcrypt = require('bcryptjs');
 const jwt = require('jsonwebtoken');
 const cookieParser = require('cookie-parser');
 
+const { DataTypes } = require('sequelize');
 const DB = require('./config/db.connect');
 
-const { ChatModel, UserModel } = require('./models');
+const { ChatModel, UserModel, MessagesModel } = require('./models');
 
 const app = express();
 
@@ -122,6 +123,10 @@ app.post('/sign_up', async (req, res) => {
                 name,
                 refresh_token: refreshToken,
             });
+            await ChatModel.create({
+                title: 'Новый чат',
+                userId: user.id,
+            });
 
             return res.status(200).json({ ...user.dataValues, refresh_token: '', password: '' });
         }
@@ -185,6 +190,72 @@ app.post('/logout', async (req, res) => {
         res.cookie('refresh_token', '');
 
         res.status(200).json({ message: 'Успешный выход' });
+    } catch (e) {
+        console.log(e);
+        return res.status(500).json({ message: 'Произошло что-то непредвиденное' });
+    }
+});
+
+app.get('/chats', async (req, res) => {
+    try {
+        const { refresh_token } = req.cookies;
+
+        const user = await UserModel.findOne({ raw: true, where: { refresh_token } });
+
+        const chats = await ChatModel.findAll({
+            raw: true,
+            where: { userId: user.id },
+        });
+
+        for (let i = 0; i < chats.length; i += 1) {
+            chats[i].messages = await MessagesModel.findAll({
+                raw: true,
+                where: { chatId: chats[i].id },
+                order: [['id', 'ASC']],
+            });
+        }
+
+        res.status(200).json(chats);
+    } catch (e) {
+        console.log(e);
+        return res.status(500).json({ message: 'Произошло что-то непредвиденное' });
+    }
+});
+
+app.post('/create_chat', async (req, res) => {
+    try {
+        const { title } = req.body;
+        const { refresh_token } = req.cookies;
+
+        const user = await UserModel.findOne({ raw: true, where: { refresh_token } });
+
+        if (!user) {
+            return res.status(500).json({ message: 'Почему-то не удалось найти Вас' });
+        }
+
+        const newChat = await ChatModel.create({
+            title,
+            userId: user.id,
+        });
+
+        return res.status(200).json(newChat);
+    } catch (e) {
+        console.log(e);
+        return res.status(500).json({ message: 'Произошло что-то непредвиденное' });
+    }
+});
+
+app.post('/send_message', async (req, res) => {
+    try {
+        const { text, chatId } = req.body;
+
+        const newMessage = await MessagesModel.create({
+            role: 'user',
+            content: text,
+            chatId,
+        });
+
+        return res.status(200).json(newMessage);
     } catch (e) {
         console.log(e);
         return res.status(500).json({ message: 'Произошло что-то непредвиденное' });

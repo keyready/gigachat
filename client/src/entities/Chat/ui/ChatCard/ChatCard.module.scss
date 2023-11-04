@@ -1,0 +1,25 @@
+.ChatCard {
+    cursor: pointer;
+    transition: 200ms ease-out;
+	padding: 10px;
+	border-radius: 10px;
+
+    &:hover {
+        background-color: darkgray;
+    }
+}
+
+.selected {
+    background-color: darkgray;
+}
+
+.title {
+    h3 {
+        margin: 0;
+    }
+}
+
+.icon {
+    width: 20px;
+    height: 20px;
+}

@@ -46,4 +46,12 @@ module.exports = {
         IS_DEV: true,
         __API__: true,
     },
+    overrides: [
+        {
+            files: ['./server/**'],
+            rules: {
+                camelcase: 'off',
+            },
+        },
+    ],
 };
