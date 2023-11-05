@@ -1,0 +1,21 @@
+.MessagesList {
+
+}
+
+.messages {
+	background: var(--card-bg);
+	position: relative !important;
+	max-height: 50vh;
+	overflow-y: auto;
+}
+
+.btn {
+	display: none;
+}
+
+.newMessage {
+	width: 100%;
+	background: lightblue;
+	border-radius: 10px;
+	color: black;
+}

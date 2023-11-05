@@ -1,0 +1,25 @@
+.wrapper {
+    position: relative;
+}
+
+.content {
+    width: 100%;
+    padding: 15px;
+    border-radius: 10px;
+    background: var(--card-bg);
+    flex-basis: 70%;
+}
+
+.tabs {
+    position: sticky;
+    top: 0;
+    flex-basis: 30%;
+}
+
+.devider {
+    width: 100%;
+    height: 3px;
+    margin: 20px 0;
+    border: none;
+    background: linear-gradient(var(--primary-gradient));
+}

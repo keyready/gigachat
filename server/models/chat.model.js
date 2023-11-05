@@ -8,7 +8,8 @@ module.exports = DB.define(
             type: DataTypes.STRING,
             defaultValue: 'Новый диалог',
         },
-        userId: DataTypes.STRING,
+        userId: DataTypes.INTEGER,
+        folderId: { type: DataTypes.INTEGER, defaultValue: 1 },
     },
     {
         tableName: 'chats',

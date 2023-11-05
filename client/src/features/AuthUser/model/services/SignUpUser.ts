@@ -1,19 +1,24 @@
 import { createAsyncThunk } from '@reduxjs/toolkit';
 import { ThunkConfig, ThunkError } from 'app/providers/StoreProvider/config/StateSchema';
 import { AxiosError } from 'axios';
-import { getUserLogin, getUserName, getUserPassword } from '../selectors/AuthUserSelectors';
+import { User, UserActions } from 'entities/User';
+import {
+    getAuthUserLogin,
+    getAuthUserName,
+    getAuthUserPassword,
+} from '../selectors/AuthUserSelectors';
 
-export const SignUpUser = createAsyncThunk<string, void, ThunkConfig<ThunkError>>(
+export const SignUpUser = createAsyncThunk<User, void, ThunkConfig<ThunkError>>(
     'AuthUser/SignUpUser',
     async (_, thunkAPI) => {
-        const { extra, rejectWithValue, getState } = thunkAPI;
+        const { extra, rejectWithValue, getState, dispatch } = thunkAPI;
 
         try {
-            const login = getUserLogin(getState());
-            const password = getUserPassword(getState());
-            const name = getUserName(getState());
+            const login = getAuthUserLogin(getState());
+            const password = getAuthUserPassword(getState());
+            const name = getAuthUserName(getState());
 
-            const response = await extra.api.post<string>('/sign_up', {
+            const response = await extra.api.post<User>('/sign_up', {
                 login,
                 password,
                 name,
@@ -23,6 +28,7 @@ export const SignUpUser = createAsyncThunk<string, void, ThunkConfig<ThunkError>
                 throw new Error();
             }
 
+            dispatch(UserActions.setUserData(response.data));
             return response.data;
         } catch (error) {
             const axiosError = error as AxiosError;

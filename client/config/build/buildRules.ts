@@ -25,11 +25,5 @@ export function buildRules(options: BuildOptions): webpack.RuleSetRule[] {
 
     const sassLoader = BuildCssLoader(isDev);
 
-    return [
-        fileLoader,
-        svgLoader,
-        codeBabelLoader,
-        tsxCodeBabelLoader,
-        sassLoader,
-    ];
+    return [fileLoader, svgLoader, codeBabelLoader, tsxCodeBabelLoader, sassLoader];
 }

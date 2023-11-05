@@ -44,6 +44,7 @@ export interface FlexProps extends DivProps {
     gap?: FlexGap;
     maxW?: boolean;
     maxH?: boolean;
+    onClick?: () => void;
 }
 
 export const Flex = (props: FlexProps) => {
@@ -56,6 +57,7 @@ export const Flex = (props: FlexProps) => {
         gap = '4',
         maxW,
         maxH,
+        onClick,
     } = props;
 
     const mods: Mods = {
@@ -71,5 +73,9 @@ export const Flex = (props: FlexProps) => {
         gapClasses[gap],
     ];
 
-    return <div className={classNames(classes.Flex, mods, classesMapper)}>{children}</div>;
+    return (
+        <div onClick={onClick} className={classNames(classes.Flex, mods, classesMapper)}>
+            {children}
+        </div>
+    );
 };

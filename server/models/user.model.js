@@ -4,7 +4,7 @@ const DB = require('../config/db.connect');
 module.exports = DB.define(
     'users',
     {
-        username: DataTypes.STRING,
+        login: DataTypes.STRING,
         password: DataTypes.STRING,
         name: DataTypes.STRING,
         refresh_token: DataTypes.TEXT,

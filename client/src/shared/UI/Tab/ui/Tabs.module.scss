@@ -1,0 +1,25 @@
+.wrapper {
+    margin: 10px 0;
+}
+
+.tab {
+    cursor: pointer;
+    padding: 5px 15px;
+    border: none;
+    border-radius: 5px;
+    color: rgb(255 255 255 / 50%);
+    transition: 200ms ease-in-out;
+    margin-right: 5px;
+}
+
+.selected {
+    border: none;
+    color: white;
+    background: var(--card-bg);
+    outline: none;
+}
+
+.panel {
+    width: 100%;
+    background: var(--card-bg);
+}
