@@ -6,13 +6,11 @@ const bcrypt = require('bcryptjs');
 const jwt = require('jsonwebtoken');
 const cookieParser = require('cookie-parser');
 
-const token = process.env.GIGACHAT_API;
-
-const { DataTypes } = require('sequelize');
 const DB = require('./config/db.connect');
 
-const { ChatModel, UserModel, MessagesModel } = require('./models');
+const { ChatModel, UserModel, MessagesModel, GCTokens } = require('./models');
 const { sendMessage } = require('./utils/sendMessage');
+const { getAccessToken } = require('./utils/getAccessToken');
 
 const app = express();
 
@@ -281,7 +279,18 @@ app.post('/send_message', async (req, res) => {
             delete messages[i].id;
         }
 
-        const answer = await sendMessage(messages, token);
+        const token = await GCTokens.findAll({ raw: true });
+
+        let answer = await sendMessage(messages, token[0]?.access_token || '');
+        while (!answer) {
+            const new_token = await getAccessToken();
+            if (new_token) {
+                await GCTokens.destroy({ where: {} });
+                await GCTokens.create({ access_token: new_token });
+                answer = await sendMessage(messages, new_token);
+            }
+        }
+
         await MessagesModel.create({
             role: 'assistant',
             content: answer,
