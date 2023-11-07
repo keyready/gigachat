@@ -52,11 +52,16 @@ const DialogPage = memo((props: DialogPageProps) => {
 
             <HStack maxW align="start">
                 <ChatsList
+                    className={classes.chatsList}
                     chats={chats}
                     setSelectedChat={setSelectedChat}
                     selectedChat={selectedChat}
                 />
-                {selectedChat ? <MessagesList chat={selectedChat} /> : <Text text="Выберите чат" />}
+                {selectedChat ? (
+                    <MessagesList className={classes.messagesList} chat={selectedChat} />
+                ) : (
+                    <Text text="Выберите чат" />
+                )}
             </HStack>
         </Page>
     );
